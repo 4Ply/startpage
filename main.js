@@ -2,6 +2,7 @@ let hotlinks = new Map([
     ["https://www.reddit.com/", "reddit"],
     ["http://127.0.0.1:32400", "plex"],
     ["http://localhost:8989", "sonarr"],
+    ["http://localhost:5050", "couchpotato"],
     ["https://www.deezer.com", "deezer"]
 ]);
 
@@ -32,6 +33,11 @@ var searchSites = [
     {
         "url": "https://wiki.archlinux.org/index.php?search=",
         "label": "ArchWiki"
+    },
+    {
+        "url": "http://euw.op.gg/summoner/userName=",
+        "label": "OP.GG",
+        "hotkey": "o"
     }
 ];
 

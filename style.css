@@ -23,13 +23,9 @@ body.load {
     width: 70%;
 }
 
-div#container-links, div#container-status {
+div#container-links, div#container-status, div#container-search {
     height: 50%;
     text-align: center;
-}
-
-div#container-search {
-    height: 50%;
 }
 
 div#container-status {
