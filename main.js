@@ -9,6 +9,7 @@ let hotlinks = new Map([
 var searchSites = [
     {
         "url": "https://www.youtube.com/results?search_query=",
+        "alternateURL": "https://www.youtube.com/feed/subscriptions",
         "label": "Youtube",
         "hotkey": "y"
     },
@@ -115,22 +116,20 @@ document.body.setAttribute('class', 'load');
 var input = document.getElementsByTagName("input");
 for (var i = 0; i < input.length; i++) {
     input[i].addEventListener('keydown', function (event) {
-        if (event.keyCode == 13) {
+        if (event.key === "Enter") {
             if (this.value === "") {
-                loseFocusOfCurrentElement();
+                let alternateURL = searchSites[this.id]["alternateURL"];
+                if (event.shiftKey === true && typeof alternateURL !== 'undefined') {
+                    window.location = alternateURL;
+                } else {
+                    loseFocusOfCurrentElement();
+                }
             } else {
                 window.location = searchSites[this.id]["url"] + this.value;
             }
         }
     });
 }
-
-var isControlPressed = false;
-document.addEventListener('keyup', function (e) {
-    if (e.code === "Control") {
-        isControlPressed = false;
-    }
-});
 
 function handleKeyPress(key) {
     for (var i in searchSites) {
@@ -147,6 +146,7 @@ function loseFocusOfCurrentElement() {
     document.activeElement.blur();
     document.getElementsByTagName("body")[0].focus();
 }
+
 document.addEventListener('keydown', function (e) {
     console.log(e);
     if (document.activeElement.tagName === "BODY") {
@@ -157,12 +157,6 @@ document.addEventListener('keydown', function (e) {
 
     if (e.code === "Escape") {
         loseFocusOfCurrentElement();
-    } else if (e.code === "Control") {
-        isControlPressed = true;
-    } else if (e.code === "v") {
-        if (isControlPressed === true) {
-
-        }
     }
 });
 
