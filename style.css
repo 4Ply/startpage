@@ -1,66 +1,80 @@
 body {
-  background: #141516;
-  text-shadow: 0.5px 0.5px #222326;
-  color: #d7d0c7;
-  font-family: "Hack", monospace;
-  font-size: 1em;
-  opacity: 0;
-  -webkit-transition: opacity 1s ease-in;
-  -moz-transition: opacity 1s ease-in;
-  -ms-transition: opacity 1s ease-in;
-  -o-transition: opacity 1s ease-in;
-  transition: opacity 1s ease-in;
+    background: #141516;
+    text-shadow: 0.5px 0.5px #222326;
+    color: #d7d0c7;
+    font-family: "Hack", monospace;
+    font-size: 1em;
+    opacity: 0;
+    -webkit-transition: opacity 1s ease-in;
+    -moz-transition: opacity 1s ease-in;
+    -ms-transition: opacity 1s ease-in;
+    -o-transition: opacity 1s ease-in;
+    transition: opacity 1s ease-in;
 }
+
 body.load {
-  opacity: 1;
+    opacity: 1;
 }
+
 .container {
-  position: relative;
-  margin: 20% auto 20% auto;
-  background-color: inherit;
-  width: 70%;
+    position: relative;
+    margin: 20% auto 20% auto;
+    background-color: inherit;
+    width: 70%;
 }
-div#container-links {
-  height: 50%;
-  text-align: center;
+
+div#container-links, div#container-status {
+    height: 50%;
+    text-align: center;
 }
+
 div#container-search {
-  height: 50%;
+    height: 50%;
 }
+
+div#container-status {
+    padding-top: 8em;
+}
+
 input {
-  box-shadow: 0.2em 0.2em 0.8em #151515;
-  border: none;
-  outline: none;
-  background: #1a1d20;
-  font-family: inherit;
-  padding: 1em;
-  margin: 1em;
-  -webkit-transition: background 1s;
-  -moz-transition: background 1s;
-  -ms-transition: background 1s;
-  -o-transition: background 1s;
-  transition: background 1s;
-  width: 28%;
-  color: #797979;
-  position: relative;
+    box-shadow: 0.2em 0.2em 0.8em #151515;
+    border: none;
+    outline: none;
+    background: #1a1d20;
+    font-family: inherit;
+    padding: 1em;
+    margin: 1em;
+    -webkit-transition: background 1s;
+    -moz-transition: background 1s;
+    -ms-transition: background 1s;
+    -o-transition: background 1s;
+    transition: background 1s;
+    width: 28%;
+    color: #797979;
+    position: relative;
 }
+
 input:focus {
-  background: inherit;
-  color: #a0a6b4;
+    background: inherit;
+    color: #a0a6b4;
 }
+
 .link {
-  padding: 1em;
-  margin: 1em;
-  width: 28%;
-  text-align: center;
+    padding: 1em;
+    margin: 1em;
+    width: 28%;
+    text-align: center;
 }
+
 a {
-  color: #7c88ab;
-  text-decoration: none;
+    color: #7c88ab;
+    text-decoration: none;
 }
+
 a:visited {
-  color: #797979;
+    color: #797979;
 }
+
 a:hover {
-  color: #d7d0c7;
+    color: #d7d0c7;
 }
