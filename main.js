@@ -15,11 +15,13 @@ var searchSites = [
     },
     {
         "url": "https://encrypted.google.com/#safe=off&q=",
+        "alternateURL": "https://encrypted.google.com",
         "label": "Google",
         "hotkey": "?"
     },
     {
         "url": "https://github.com/search?&q=",
+        "alternateURL": "https://www.github.com",
         "label": "GitHub"
     },
     {
@@ -44,16 +46,28 @@ var searchSites = [
 
 var statuses = [
     {
-        "url": "http://localhost:9091",
-        "label": "% torrents",
-        "endpoint": "transmission"
-    },
-    {
         "url": "http://127.0.0.1:8080",
         "label": "sabnzbd %",
         "endpoint": "sabnzbd"
+    },
+    {
+        "url": "http://localhost:9091",
+        "label": "%",
+        "endpoint": "transmission"
+    },
+    {
+        "url": "#",
+        "label": "cmus \n%",
+        "endpoint": "cmus"
     }
 ];
+
+jQuery.fn.center = function () {
+    this.css("position", "absolute");
+    $(this).animate({top: "-30%", left: "34%"}, "fast");
+    $(this).css("z-index", "10");
+    return this;
+};
 
 var linkContainer = document.getElementById('container-links');
 for (let [url, name] of hotlinks) {
@@ -89,6 +103,7 @@ for (var i in statuses) {
     statusElement.text = label;
     statusElement.id = endpoint;
     statusContainer.appendChild(statusElement);
+    statusContainer.appendChild(document.createElement('br'));
 
     getStatus(endpoint, label);
 }
@@ -103,7 +118,11 @@ function getStatus(endpoint, label) {
         dataType: "json",
         cache: false,
         success: function (response) {
-            document.getElementById(endpoint).text = label.replace("%", response.data);
+            document.getElementById(endpoint).innerHTML = label.replace("%", response.data);
+
+            setTimeout(function () {
+                getStatus(endpoint, label);
+            }, 1000);
         },
         error: function (xhr, textStatus, errorThrown) {
             console.log("error : " + textStatus);
@@ -147,11 +166,24 @@ function loseFocusOfCurrentElement() {
     document.getElementsByTagName("body")[0].focus();
 }
 
+document.addEventListener('keyup', function (e) {
+    refreshInputLabel();
+});
+
+function refreshInputLabel() {
+    if (document.activeElement.tagName === "INPUT") {
+        $("#header").text(document.activeElement.placeholder + ": " + document.activeElement.value);
+    } else {
+        $("#header").text("\\n");
+    }
+}
+
 document.addEventListener('keydown', function (e) {
     console.log(e);
     if (document.activeElement.tagName === "BODY") {
         if (handleKeyPress(e.key) === true) {
             e.preventDefault();
+            return;
         }
     }
 

@@ -18,6 +18,8 @@ class S(BaseHTTPRequestHandler):
         x = ""
         if self.path.startswith("/transmission"):
             x = check_output(["./transmission.sh"])
+        if self.path.startswith("/cmus"):
+            x = check_output(["./cmus-status.sh"])
 
         self.wfile.write('{"data":"' + x + '"}')
 

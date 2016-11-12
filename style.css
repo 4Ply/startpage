@@ -18,12 +18,18 @@ body.load {
 
 .container {
     position: relative;
-    margin: 20% auto 20% auto;
+    margin: 10% auto 20% auto;
     background-color: inherit;
     width: 70%;
 }
 
-div#container-links, div#container-status, div#container-search {
+.header {
+    position: relative;
+    margin: 10% auto 10% auto;
+    width: 70%;
+}
+
+div#container-links, div#container-status, div#container-search, div#container-header {
     height: 50%;
     text-align: center;
 }
