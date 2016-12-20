@@ -3,6 +3,8 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import SocketServer
 from subprocess import check_output
+from urlparse import urlparse, parse_qs
+import requests
 
 
 class S(BaseHTTPRequestHandler):
@@ -24,6 +26,10 @@ class S(BaseHTTPRequestHandler):
             x = check_output(["./cmus-status.sh"])
         if self.path.startswith("/anime_size"):
             x = check_output(["anime_size"])
+        if self.path.startswith("/download_anime"):
+            query_components = parse_qs(urlparse(self.path).query)
+            print query_components
+            x = download_anime(query_components)
 
         self.wfile.write('{"data":"' + x + '"}')
 
@@ -34,7 +40,20 @@ class S(BaseHTTPRequestHandler):
         # Doesn't do anything with posted data
         self._set_headers()
         self.wfile.write("<html><body><h1>POST!</h1></body></html>")
-        
+
+
+def download_anime(query_components):
+    suffix = query_components["suffix"]
+    customName = query_components["customName"]
+    if "season" in query_components:
+        season = query_components["season"]
+    else:
+        season = ""
+
+    r = requests.post("http://localhost:43700/download", data={'anime': suffix, 'customName': customName, 'season': season})
+    return str(r.status_code)
+
+
 def run(server_class=HTTPServer, handler_class=S, port=7033):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)

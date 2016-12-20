@@ -216,6 +216,11 @@ document.addEventListener('keydown', function (e) {
 
 handleKeyPress('?');
 
+function navigateToAddAnimePage(animeName) {
+    sessionStorage.setItem('anime', animeName);
+    window.location = 'add_anime.html';
+}
+
 function handlePaste(e) {
     const clipboardData = e.clipboardData || window.clipboardData;
     const pastedData = clipboardData.getData('Text');
@@ -224,7 +229,12 @@ function handlePaste(e) {
         e.stopPropagation();
         e.preventDefault();
 
-        window.location = pastedData;
+        let kissAnimeUrl = "http://kissanime.ru/Anime/";
+        if (pastedData.startsWith(kissAnimeUrl)) {
+            navigateToAddAnimePage(pastedData.substr(kissAnimeUrl.length));
+        } else {
+            window.location = pastedData;
+        }
     }
 }
 
