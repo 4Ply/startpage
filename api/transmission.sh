@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
 count=$(echo $(transmission-remote 127.0.0.1 -l | wc -l) - 2 | bc)
-printf $count
 if test $count -gt 0
 then
     stats=$(transmission-remote 127.0.0.1 -l | tail -n 1 | column -t)
@@ -14,4 +13,6 @@ then
     else
         printf "$count | $down / $up"
     fi
+else
+    printf "0 torrents"
 fi

@@ -25,8 +25,8 @@ var searchSites = [
         "label": "GitHub"
     },
     {
-        "url": "https://thepiratebay.se/search/",
-        "label": "The Pirate Bay"
+        "url": "http://extratorrent.cc/search/?search=",
+        "label": "ExtraTorrent"
     },
     {
         "url": "https://aur.archlinux.org/packages/?O=0&K=",
@@ -34,13 +34,25 @@ var searchSites = [
         "hotkey": "a"
     },
     {
-        "url": "https://wiki.archlinux.org/index.php?search=",
-        "label": "ArchWiki"
+        "url": "http://kissanime.ru/Search/Anime/",
+        "alternateURL": "http://kissanime.ru",
+        "label": "KissAnime"
+    },
+    {
+        "url": "https://thepiratebay.org/search/",
+        "label": "The Pirate Bay",
+        "hotkey": "p"
     },
     {
         "url": "http://euw.op.gg/summoner/userName=",
         "label": "OP.GG",
         "hotkey": "o"
+    },
+    {
+        "url": "https://myanimelist.net/search/all?q=",
+        "alternateURL": "https://myanimelist.net/animelist/Rainb0wCak3?status=1",
+        "label": "My Anime List",
+        "hotkey": "m"
     }
 ];
 
@@ -56,9 +68,19 @@ var statuses = [
         "endpoint": "transmission"
     },
     {
+        "url": "http://localhost/aria/webui-aria2",
+        "label": "aria2 - %",
+        "endpoint": "aria2"
+    },
+    {
         "url": "#",
         "label": "cmus \n%",
         "endpoint": "cmus"
+    },
+    {
+        "url": "#",
+        "label": "%",
+        "endpoint": "anime_size"
     }
 ];
 

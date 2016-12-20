@@ -18,8 +18,12 @@ class S(BaseHTTPRequestHandler):
         x = ""
         if self.path.startswith("/transmission"):
             x = check_output(["./transmission.sh"])
+        if self.path.startswith("/aria2"):
+            x = check_output(["./aria-status.py"])
         if self.path.startswith("/cmus"):
             x = check_output(["./cmus-status.sh"])
+        if self.path.startswith("/anime_size"):
+            x = check_output(["anime_size"])
 
         self.wfile.write('{"data":"' + x + '"}')
 
