@@ -60,6 +60,7 @@ function createAnimeCard(id, title, img_url, reasons) {
 
     $(watching_template).find("#add-reason").html(getAddReasonText());
     $(watching_template).find("#add-reason").attr('anime_id', id);
+    $(watching_template).find("#mal-link").attr('href', 'https://myanimelist.net/anime/' + id);
 
     return watching_template;
 }
