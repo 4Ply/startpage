@@ -87,3 +87,15 @@ a:visited {
 a:hover {
     color: #d7d0c7;
 }
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    color: #000000 !important;
+}
+
+.tabs .tab a {
+    color: #7c88ab !important;
+}
+
+.tabs .indicator {
+    background-color: #a0a6b4 !important;
+}
