@@ -1,9 +1,9 @@
 let hotlinks = new Map([
-    ["https://www.reddit.com/", "reddit"],
     ["http://127.0.0.1:32400", "plex"],
     ["http://localhost:8989", "sonarr"],
     ["http://localhost:5050", "couchpotato"],
-    ["https://www.deezer.com", "deezer"]
+    ["https://www.deezer.com", "deezer"],
+    ["https://play.google.com/music/", "play music"]
 ]);
 
 var searchSites = [
