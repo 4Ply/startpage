@@ -218,7 +218,7 @@ handleKeyPress('?');
 
 function navigateToAddAnimePage(animeName) {
     sessionStorage.setItem('anime', animeName);
-    window.location = 'add_anime.html';
+    window.location = '../add_anime.html';
 }
 
 function handlePaste(e) {

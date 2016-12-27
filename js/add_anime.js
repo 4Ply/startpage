@@ -17,7 +17,7 @@ function addAnime(suffix, customName, season) {
         dataType: "json",
         cache: false,
         success: function (response) {
-            window.location = "../startpage";
+            window.location = "../";
         },
         error: function (xhr, textStatus, errorThrown) {
             console.log("error : " + textStatus);
