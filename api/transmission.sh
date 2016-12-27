@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 count=$(echo $(transmission-remote 127.0.0.1 -l | wc -l) - 2 | bc)
 if test $count -gt 0
