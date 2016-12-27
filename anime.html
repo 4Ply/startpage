@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="css/watching_anime_style.css">
+
+    <title>Anime</title>
+</head>
+
+<body>
+
+<div class="row">
+
+    <div class="container">
+        <div class="col s12">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab col s3"><a class="active" href="#watching-container">Watching</a></li>
+                <li class="tab col s3"><a href="#watching-reasons-container">Watching (RO)</a></li>
+                <li class="tab col s3"><a href="#plan-to-watch-container">Plan to watch</a></li>
+                <li class="tab col s3"><a href="#plan-to-watch-reasons-container">Plan to watch (RO)</a></li>
+                <li class="tab col s3 disabled"><a href="#completed-container">Completed</a></li>
+            </ul>
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+    <div class="container">
+        <div id="watching-container" class="col s12"></div>
+        <div id="watching-reasons-container" class="col s12"></div>
+        <div id="plan-to-watch-container" class="col s12"></div>
+        <div id="plan-to-watch-reasons-container" class="col s12"></div>
+        <div id="completed-container" class="col s12"></div>
+    </div>
+</div>
+
+<div id="watching-template" type="text/x-custom-template" class="hide">
+    <div class="col s12 m7 l4">
+        <div class="card medium sticky-action hoverable">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img id="anime-img" class="activator" src="">
+            </div>
+
+            <div class="card-content">
+                <span id="anime-title" class="activator grey-text text-darken-4">
+                    Steins;Gate
+                </span>
+            </div>
+
+            <div class="card-reveal black-text">
+                <span class="card-title grey-text text-darken-4">
+                </span>
+                <br/>
+                <table id="reason-list" class="bordered">
+                    <thead>
+                    <tr>
+                        <th data-field="id" class="reasons-count">Reasons</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-action">
+                <a id="add-reason" href="#" class="light-blue-text" onclick="addReason($(this).attr('anime_id'))">Add
+                    reason</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/anime.js"></script>
+<script type="text/javascript" src="js/add_anime_reason.js"></script>
+</body>
+
+</html>

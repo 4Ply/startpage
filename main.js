@@ -78,7 +78,7 @@ var statuses = [
         "endpoint": "cmus"
     },
     {
-        "url": "#",
+        "url": "anime.html",
         "label": "%",
         "endpoint": "anime_size"
     }
