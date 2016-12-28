@@ -11,11 +11,6 @@ import spice_api as spice
 
 import MySQLdb
 
-db = MySQLdb.connect(host="192.168.2.140",
-                     user=os.environ['ANIWATCH_USER'],
-                     passwd=os.environ['ANIWATCH_PASS'],
-                     db="anime")
-
 cached_anime_list = 0
 
 
@@ -85,7 +80,7 @@ def filter_anime_by_status(anime_list, wanted_status):
     return [anime for anime in anime_list if anime.status == wanted_status]
 
 
-def get_reasons(anime_id):
+def get_reasons(db, anime_id):
     cursor = db.cursor()
     cursor.execute("SELECT `reason` FROM watching_reasons WHERE `anime_id` = %s" % anime_id)
 
@@ -104,6 +99,7 @@ def add_anime_reason(query_components):
     print 'Adding reason:', anime_id, reason
     result = "success"
 
+    db = get_db()
     cursor = db.cursor()
     try:
         cursor.execute("INSERT INTO `watching_reasons` (`anime_id`, `reason`) VALUES (%s, %s)", (anime_id, reason))
@@ -112,6 +108,7 @@ def add_anime_reason(query_components):
         result = "error"
         db.rollback()
     cursor.close()
+    db.close()
 
     return result
 
@@ -131,6 +128,8 @@ def get_anime_by_status(status=''):
         cached_anime_list = spice.get_list(spice.get_medium('anime'), mal_user, spice.init_auth(mal_user, os.environ['MAL_PASS']))
 
     watching_list = filter_anime_by_status(cached_anime_list.get_mediums(), status)
+
+    db = get_db()
     json_watching_list = []
     for anime in watching_list:
         print anime.title.encode('utf-8'), anime.image_url
@@ -138,13 +137,22 @@ def get_anime_by_status(status=''):
             'id': anime.id,
             'title': anime.title.encode('utf-8'),
             'image_url': anime.image_url,
-            'reasons': get_reasons(anime.id),
+            'reasons': get_reasons(db, anime.id),
             'status': anime.status
         })
 
+    db.close()
     json_dump = json.dumps(json_watching_list)
     print json_dump
     return json_dump
+
+
+def get_db():
+    db = MySQLdb.connect(host="192.168.2.140",
+                         user=os.environ['ANIWATCH_USER'],
+                         passwd=os.environ['ANIWATCH_PASS'],
+                         db="anime")
+    return db
 
 
 def run(server_class=HTTPServer, handler_class=S, port=7033):
