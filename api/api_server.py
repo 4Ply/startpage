@@ -49,6 +49,10 @@ class S(BaseHTTPRequestHandler):
             query_components = parse_qs(urlparse(self.path).query)
             print query_components
             x = add_anime_reason(query_components)
+        if self.path.startswith("/flush_cache"):
+            global cached_anime_list
+            cached_anime_list = 0
+            x = 'success'
 
         self.wfile.write('{"data":"' + x + '"}')
 
@@ -125,7 +129,8 @@ def get_anime_by_status(status=''):
     mal_user = os.environ['MAL_USER']
     global cached_anime_list
     if cached_anime_list == 0:
-        cached_anime_list = spice.get_list(spice.get_medium('anime'), mal_user, spice.init_auth(mal_user, os.environ['MAL_PASS']))
+        cached_anime_list = spice.get_list(spice.get_medium('anime'), mal_user,
+                                           spice.init_auth(mal_user, os.environ['MAL_PASS']))
 
     watching_list = filter_anime_by_status(cached_anime_list.get_mediums(), status)
 

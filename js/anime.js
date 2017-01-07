@@ -93,6 +93,39 @@ function addPlanToWatchAnime(id, title, img_url, reasons) {
     }
 }
 
+function flushMALCache() {
+    var stringUrl = "http://localhost:7033/flush_cache";
+    $.ajax({
+        type: "GET",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        url: stringUrl,
+        dataType: "json",
+        cache: true,
+        success: function (response) {
+            console.log("flushMALCache success : " + response.data);
+            window.location.reload();
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            console.log("flushMALCache error : " + textStatus);
+        }
+    });
+}
+
+function handleKeyPress(key) {
+    if (key === 'r') {
+        flushMALCache();
+        return true;
+    }
+    return false;
+}
+
+document.addEventListener('keydown', function (e) {
+    console.log(e);
+    if (handleKeyPress(e.key) === true) {
+        e.preventDefault();
+    }
+});
+
 
 fetchWatchingAnime();
 

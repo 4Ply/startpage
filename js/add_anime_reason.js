@@ -23,7 +23,7 @@ function addReasonForAnime(anime_id, reason) {
 function addReason(anime_id) {
     const reason = prompt("Enter a reason to watch this Anime:");
 
-    if (reason != null) {
+    if (reason !== null) {
         addReasonForAnime(anime_id, reason);
     }
 }

@@ -1,5 +1,5 @@
 let hotlinks = new Map([
-    ["http://127.0.0.1:32400", "plex"],
+    ["http://127.0.0.1:32400/web", "plex"],
     ["http://localhost:8989", "sonarr"],
     ["http://localhost:5050", "couchpotato"],
     ["https://www.deezer.com", "deezer"],
