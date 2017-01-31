@@ -57,6 +57,8 @@ class S(BaseHTTPRequestHandler):
             query_components = parse_qs(urlparse(self.path).query)
             print query_components
             x = update_volume(query_components)
+        if self.path.startswith("/current_volume"):
+            x = check_output(["./current-volume.sh"])
 
         self.wfile.write('{"data":"' + x + '"}')
 
@@ -168,7 +170,7 @@ def update_volume(query_components):
     volume = query_components["volume"][0]
 
     print 'Updating volume:', volume
-    output = check_output(["./update_volume.sh", volume])
+    output = check_output(["./update-volume.sh", volume])
     print "Volume changed:", output
     return "success"
 

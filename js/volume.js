@@ -42,3 +42,34 @@ $(function () {
         }
     });
 });
+
+
+function getCurrentVolume() {
+    var host = "http://" + window.location.hostname;
+    var stringUrl = host + ":7033/current_volume";
+    $.ajax({
+        type: "GET",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        url: stringUrl,
+        data: {},
+        dataType: "json",
+        cache: false,
+        success: function (response) {
+            console.log(response.data);
+            let volume = (response.data / 65536) * 100;
+            console.log(volume);
+            $("#slider").slider("value", volume);
+
+            setTimeout(function () {
+                getCurrentVolume();
+            }, 1000);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            console.log("error : " + textStatus);
+        }
+    });
+}
+
+setTimeout(function () {
+    getCurrentVolume();
+}, 1000);
