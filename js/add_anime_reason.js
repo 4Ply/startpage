@@ -1,5 +1,6 @@
 function addReasonForAnime(anime_id, reason) {
-    var stringUrl = "http://localhost:7033/add_anime_reason";
+    var host = "http://" + window.location.hostname;
+    var stringUrl = host + ":7033/add_anime_reason";
     $.ajax({
         type: "GET",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",

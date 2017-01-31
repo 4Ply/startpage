@@ -131,7 +131,8 @@ for (var i in statuses) {
 }
 
 function getStatus(endpoint, label) {
-    var stringUrl = "http://localhost:7033/" + endpoint;
+    var host = "http://" + window.location.hostname;
+    var stringUrl = host + ":7033/" + endpoint;
     $.ajax({
         type: "GET",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",

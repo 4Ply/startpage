@@ -4,7 +4,8 @@ String.prototype.replaceAll = function (search, replacement) {
 };
 
 function fetchWatchingAnime() {
-    var stringUrl = "http://localhost:7033/all_anime";
+    var host = "http://" + window.location.hostname;
+    var stringUrl = host + ":7033/all_anime";
     $.ajax({
         type: "GET",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -94,7 +95,8 @@ function addPlanToWatchAnime(id, title, img_url, reasons) {
 }
 
 function flushMALCache() {
-    var stringUrl = "http://localhost:7033/flush_cache";
+    var host = "http://" + window.location.hostname;
+    var stringUrl = host + ":7033/flush_cache";
     $.ajax({
         type: "GET",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",

@@ -4,7 +4,8 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 function addAnime(suffix, customName, season) {
-    var stringUrl = "http://localhost:7033/download_anime";
+    var host = "http://" + window.location.hostname;
+    var stringUrl = host + ":7033/download_anime";
     $.ajax({
         type: "GET",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
