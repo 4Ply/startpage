@@ -1,0 +1,106 @@
+body {
+    background: #141516;
+    text-shadow: 0.5px 0.5px #222326;
+    color: #d7d0c7;
+    font-family: "Hack", monospace;
+    font-size: 1em;
+    opacity: 0;
+    -webkit-transition: opacity 1s ease-in;
+    -moz-transition: opacity 1s ease-in;
+    -ms-transition: opacity 1s ease-in;
+    -o-transition: opacity 1s ease-in;
+    transition: opacity 1s ease-in;
+}
+
+body.load {
+    opacity: 1;
+}
+
+.container {
+    position: relative;
+    margin: 3% auto auto auto;
+    background-color: inherit;
+    width: 30%;
+}
+
+.container + .submit {
+    margin: 1% auto auto auto;
+    width: 10%;
+}
+
+.header {
+    position: relative;
+    margin: 10% auto 0 auto;
+    width: 70%;
+}
+
+div#container-header {
+    height: 50%;
+    text-align: center;
+}
+
+input, button {
+    box-shadow: 0.2em 0.2em 0.8em #151515;
+    border: none;
+    outline: none;
+    background: #1a1d20;
+    font-family: inherit;
+    padding: 1em;
+    margin: 1em;
+    -webkit-transition: background 1s;
+    -moz-transition: background 1s;
+    -ms-transition: background 1s;
+    -o-transition: background 1s;
+    transition: background 1s;
+    width: 100%;
+    color: #797979;
+    position: relative;
+}
+
+input#customName {
+    width: 70%;
+}
+
+input#season {
+    width: 30%;
+}
+
+input:focus, button:focus {
+    background: inherit;
+    color: #a0a6b4;
+}
+
+.link {
+    padding: 1em;
+    margin: 1em;
+    width: 28%;
+    text-align: center;
+}
+
+a {
+    color: #7c88ab;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #797979;
+}
+
+a:hover {
+    color: #d7d0c7;
+}
+
+.ui-slider-vertical {
+    width: 2.5em;
+    height: 300px;
+}
+
+.ui-slider-handle {
+    width: 3.0em !important;
+    height: 1.4em !important;
+}
+
+.ui-state-active {
+    background: #7c88ab !important;
+    border: #7c88ab !important;
+}

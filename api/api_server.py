@@ -53,6 +53,10 @@ class S(BaseHTTPRequestHandler):
             global cached_anime_list
             cached_anime_list = 0
             x = 'success'
+        if self.path.startswith("/update_volume"):
+            query_components = parse_qs(urlparse(self.path).query)
+            print query_components
+            x = update_volume(query_components)
 
         self.wfile.write('{"data":"' + x + '"}')
 
@@ -158,6 +162,15 @@ def get_db():
                          passwd=os.environ['ANIWATCH_PASS'],
                          db="anime")
     return db
+
+
+def update_volume(query_components):
+    volume = query_components["volume"][0]
+
+    print 'Updating volume:', volume
+    output = check_output(["./update_volume.sh", volume])
+    print "Volume changed:", output
+    return "success"
 
 
 def run(server_class=HTTPServer, handler_class=S, port=7033):
