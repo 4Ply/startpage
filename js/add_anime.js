@@ -25,8 +25,25 @@ function addAnime(suffix, customName, season) {
     });
 }
 
-$("#urlSuffix").val(sessionStorage.getItem('anime'));
-$("#customName").val(sessionStorage.getItem('anime').replaceAll("-", " "));
+function getParameterByName(name, url) {
+    if (!url) {
+          url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+let animeName = sessionStorage.getItem('anime');
+if (animeName === null) {
+	animeName = getParameterByName('anime');
+}
+
+$("#urlSuffix").val(animeName);
+$("#customName").val(animeName.replaceAll("-", " "));
 
 $("#submit-button").click(function () {
     addAnime($("#urlSuffix").val().trim(), $("#customName").val().trim(), $("#season").val().trim());
