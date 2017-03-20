@@ -1,7 +1,8 @@
 let hotlinks = new Map([
-    ["http://127.0.0.1:32400/web", "plex"],
-    ["http://localhost:8989", "sonarr"],
-    ["http://localhost:5050", "couchpotato"],
+    ["http://$#:32400/web", "plex"],
+    ["http://$#:8989", "sonarr"],
+    ["http://$#:5050", "couchpotato"],
+    ["http://$#:19999", "netdata"],
     ["https://www.deezer.com", "deezer"],
     ["https://play.google.com/music/", "play music"]
 ]);
@@ -46,6 +47,7 @@ var searchSites = [
     {
         "url": "http://euw.op.gg/summoner/userName=",
         "label": "OP.GG",
+	"alternateURL": "https://euw.op.gg/multi",
         "hotkey": "o"
     },
     {
@@ -58,17 +60,17 @@ var searchSites = [
 
 var statuses = [
     {
-        "url": "http://127.0.0.1:8080",
+        "url": "http://$#:8080",
         "label": "sabnzbd %",
         "endpoint": "sabnzbd"
     },
     {
-        "url": "http://localhost:9091",
+        "url": "http://$#:9091",
         "label": "%",
         "endpoint": "transmission"
     },
     {
-        "url": "http://localhost/aria/webui-aria2",
+        "url": "http://$#/aria/webui-aria2",
         "label": "aria2 - %",
         "endpoint": "aria2"
     },
@@ -94,7 +96,7 @@ jQuery.fn.center = function () {
 var linkContainer = document.getElementById('container-links');
 for (let [url, name] of hotlinks) {
     var link = document.createElement('a');
-    link.setAttribute('href', url);
+    link.setAttribute('href', url.replace('$#', window.location.hostname));
     link.setAttribute('class', 'link');
     link.text = name;
     linkContainer.appendChild(link);
@@ -115,7 +117,7 @@ for (var i in searchSites) {
 var statusContainer = document.getElementById('container-status');
 for (var i in statuses) {
     let status = statuses[i];
-    var url = status["url"];
+    var url = status["url"].replace('$#', window.location.hostname);
     var label = status["label"];
     var endpoint = status["endpoint"];
 
