@@ -1,11 +1,17 @@
-let hotlinks = new Map([
-    ["http://$#:32400/web", "plex"],
-    ["http://$#:8989", "sonarr"],
-    ["http://$#:5050", "couchpotato"],
-    ["http://$#:19999", "netdata"],
-    ["https://www.deezer.com", "deezer"],
-    ["https://play.google.com/music/", "play music"]
-]);
+let hotlinks = [
+    ["admin", "http://192.168.2.1", "router"],
+    ["admin", "http://192.168.2.1/DHCPTable.html", "dhcp table"],
+    ["watch", "http://$#:32400/web", "plex"],
+    ["watch", "https://www.twitch.tv/directory/game/League%20of%20Legends", "twitch"],
+    ["download", "http://$#:8989", "sonarr"],
+    ["download", "http://$#:5050", "couchpotato"],
+    ["download", "http://$#:8080", "sabnzbd"],
+    ["read", "https://www.reddit.com", "reddit"],
+    ["observe", "http://$#:19999", "netdata"],
+    ["listen", "https://www.deezer.com", "deezer"],
+    ["listen", "https://play.google.com/music", "play music"],
+    ["listen", "https://soundcloud.com/seeking-blue", "soundcloud"]
+];
 
 var searchSites = [
     {
@@ -47,7 +53,7 @@ var searchSites = [
     {
         "url": "http://euw.op.gg/summoner/userName=",
         "label": "OP.GG",
-	"alternateURL": "https://euw.op.gg/multi",
+        "alternateURL": "https://euw.op.gg/multi",
         "hotkey": "o"
     },
     {
@@ -59,11 +65,6 @@ var searchSites = [
 ];
 
 var statuses = [
-    {
-        "url": "http://$#:8080",
-        "label": "sabnzbd %",
-        "endpoint": "sabnzbd"
-    },
     {
         "url": "http://$#:9091",
         "label": "%",
@@ -93,13 +94,38 @@ jQuery.fn.center = function () {
     return this;
 };
 
-var linkContainer = document.getElementById('container-links');
-for (let [url, name] of hotlinks) {
-    var link = document.createElement('a');
-    link.setAttribute('href', url.replace('$#', window.location.hostname));
-    link.setAttribute('class', 'link');
-    link.text = name;
-    linkContainer.appendChild(link);
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+var groupsContainer = document.getElementById('container-groups');
+let groupNames = hotlinks.map(function (currentValue) {
+    return currentValue[0];
+}).filter(onlyUnique);
+
+for (let groupName of groupNames) {
+    var group = document.createElement('a');
+    group.setAttribute('href', "#");
+    group.setAttribute('class', 'link group');
+    group.text = groupName;
+    group.onmouseover = function () {
+        switchHotlinks(groupName);
+    };
+    groupsContainer.appendChild(group);
+}
+
+function switchHotlinks(targetGroupName) {
+    var linksContainer = document.getElementById('container-links');
+    $(linksContainer).empty();
+    for (let [groupName, url, name] of hotlinks) {
+        if (groupName === targetGroupName) {
+            var link = document.createElement('a');
+            link.setAttribute('href', url.replace('$#', window.location.hostname));
+            link.setAttribute('class', 'link');
+            link.text = name;
+            linksContainer.appendChild(link);
+        }
+    }
 }
 
 var searchContainer = document.getElementById('container-search');

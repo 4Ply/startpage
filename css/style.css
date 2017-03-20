@@ -29,9 +29,13 @@ body.load {
     width: 70%;
 }
 
-div#container-links, div#container-status, div#container-search, div#container-header {
+div#container-groups, div#container-links, div#container-status, div#container-search, div#container-header {
     height: 50%;
     text-align: center;
+}
+
+div#container-links {
+    padding-top: 1em;
 }
 
 div#container-status {
