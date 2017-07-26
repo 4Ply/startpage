@@ -7,8 +7,8 @@ count=$(echo $(transmission-remote $host $auth -l | wc -l) - 2 | bc)
 if test $count -gt 0
 then
     stats=$(transmission-remote $host $auth -l | tail -n 1 | column -t)
-    down=$(echo $stats | cut -d " " -f 5 | cut -d '.' -f 1)kbps
-    up=$(echo $stats | cut -d " " -f 4 | cut -d '.' -f 1)kpbs
+    down=$(echo $stats | cut -d " " -f 4 | cut -d '.' -f 1)kbps
+    up=$(echo $stats | cut -d " " -f 3 | cut -d '.' -f 1)kpbs
     count="$count torrents"
     if $(transmission-remote $host $auth -si | grep 'Enabled turtle' > /dev/null)
     then
