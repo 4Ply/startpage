@@ -8,10 +8,11 @@ import requests
 import os
 import json
 import spice_api as spice
-
 import MySQLdb
+from expiringdict import ExpiringDict
 
 cached_anime_list = 0
+cache = ExpiringDict(max_len=100, max_age_seconds=900)
 
 
 class S(BaseHTTPRequestHandler):
@@ -26,7 +27,11 @@ class S(BaseHTTPRequestHandler):
         self._set_headers()
         x = ""
         if self.path.startswith("/transmission"):
-            x = check_output(["./transmission.sh"])
+            query = urlparse(self.path).query
+            query_components = dict(qc.split("=") for qc in query.split("&"))
+            port = query_components["port"]
+            node = query_components["node"]
+            x = check_output(["./transmission.sh", port, node])
         if self.path.startswith("/aria2"):
             x = check_output(["./aria-status.py"])
         if self.path.startswith("/cmus"):
@@ -59,6 +64,12 @@ class S(BaseHTTPRequestHandler):
             x = update_volume(query_components)
         if self.path.startswith("/current_volume"):
             x = check_output(["./current-volume.sh"])
+        if self.path.startswith("/data_usage"):
+            if cache.get('data_usage') is not None:
+                x = cache.get('data_usage')
+            else:
+                x = check_output(["./get_data_usage.py"])
+                cache['data_usage'] = x
 
         self.wfile.write('{"data":"' + x + '"}')
 

@@ -32,6 +32,7 @@ body.load {
 div#container-groups, div#container-links, div#container-status, div#container-search, div#container-header {
     height: 50%;
     text-align: center;
+    padding-top: 1em;
 }
 
 div#container-links {
@@ -63,6 +64,10 @@ input {
 input:focus {
     background: inherit;
     color: #a0a6b4;
+}
+
+.lost_link {
+    padding-top: 0em !important;
 }
 
 .link {

@@ -1,16 +1,21 @@
 let hotlinks = [
+    ["admin", "http://$#:9000", "portainer"],
     ["admin", "http://192.168.2.1", "router"],
+    ["admin", "http://192.168.2.2", "switch"],
     ["admin", "http://192.168.2.1/DHCPTable.html", "dhcp table"],
     ["watch", "http://$#:32400/web", "plex"],
     ["watch", "https://www.twitch.tv/directory/game/League%20of%20Legends", "twitch"],
-    ["download", "http://$#:8989", "sonarr"],
+    ["sonarr", "http://$#:8991", "sonarr1"],
+    ["sonarr", "http://$#:8992", "sonarr2"],
+    ["sonarr", "http://$#:8993", "sonarr3"],
     ["download", "http://$#:5050", "couchpotato"],
-    ["download", "http://$#:8080", "sabnzbd"],
+    ["download", "http://localhost:8080", "sabnzbd"],
     ["read", "https://www.reddit.com", "reddit"],
     ["observe", "http://$#:19999", "netdata"],
     ["listen", "https://www.deezer.com", "deezer"],
     ["listen", "https://play.google.com/music", "play music"],
-    ["listen", "https://soundcloud.com/seeking-blue", "soundcloud"]
+    ["listen", "https://soundcloud.com/seeking-blue", "soundcloud"],
+    ["listen", "https://www.dubtrack.fm", "dubtrack"]
 ];
 
 var searchSites = [
@@ -32,8 +37,9 @@ var searchSites = [
         "label": "GitHub"
     },
     {
-        "url": "http://extratorrent.cc/search/?search=",
-        "label": "ExtraTorrent"
+        "url": "https://thepiratebay.org/search/",
+        "label": "The Pirate Bay",
+        "hotkey": "p"
     },
     {
         "url": "https://aur.archlinux.org/packages/?O=0&K=",
@@ -46,9 +52,10 @@ var searchSites = [
         "label": "KissAnime"
     },
     {
-        "url": "https://thepiratebay.org/search/",
-        "label": "The Pirate Bay",
-        "hotkey": "p"
+        "url": "http://lolnexus.com/EUW/search?name=",
+        "alternateURL": "http://lolnexus.com/EUW/search?name=Queuing in Vayne",
+        "label": "LoLNexus",
+	"hotkey": "l"
     },
     {
         "url": "http://euw.op.gg/summoner/userName=",
@@ -66,9 +73,24 @@ var searchSites = [
 
 var statuses = [
     {
-        "url": "http://$#:9091",
-        "label": "%",
-        "endpoint": "transmission"
+        "url": "https://clientzone.afrihost.com",
+        "label": "Fibre Usage: %",
+        "endpoint": "data_usage"
+    },
+    {
+        "url": "http://localhost:9091",
+        "label": "Node1: %",
+        "endpoint": "transmission?port=9091&node=Node1"
+    },
+    {
+        "url": "http://localhost:9092",
+        "label": "Node2: %",
+        "endpoint": "transmission?port=9092&node=Node2"
+    },
+    {
+        "url": "http://localhost:9093",
+        "label": "Node3: %",
+        "endpoint": "transmission?port=9093&node=Node3"
     },
     {
         "url": "http://$#/aria/webui-aria2",
@@ -126,6 +148,7 @@ function switchHotlinks(targetGroupName) {
             linksContainer.appendChild(link);
         }
     }
+    //$('#container-groups').addClass('lost_link');
 }
 
 var searchContainer = document.getElementById('container-search');
@@ -159,8 +182,13 @@ for (var i in statuses) {
 }
 
 function getStatus(endpoint, label) {
-    var host = "http://" + window.location.hostname;
-    var stringUrl = host + ":7033/" + endpoint;
+    var host = window.location.protocol + "//" + window.location.hostname;
+    if (window.location.hostname.indexOf('.') === -1) {
+	    host += ":7033"
+    } else {
+	    host += "/startpage_api"
+    }
+    var stringUrl = host + "/" + endpoint;
     $.ajax({
         type: "GET",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -243,7 +271,7 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-handleKeyPress('?');
+//handleKeyPress('?');
 
 function navigateToAddAnimePage(animeName) {
     sessionStorage.setItem('anime', animeName);
