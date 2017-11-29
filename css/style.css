@@ -18,14 +18,14 @@ body.load {
 
 .container {
     position: relative;
-    margin: 10% auto 20% auto;
+    margin: 5% auto 0% auto;
     background-color: inherit;
     width: 70%;
 }
 
 .header {
     position: relative;
-    margin: 10% auto 10% auto;
+    margin: 10% auto 0% auto;
     width: 70%;
 }
 
@@ -71,14 +71,14 @@ input:focus {
 }
 
 .link {
-    padding: 1em;
+    padding-right: 1em;
     margin: 1em;
     width: 28%;
     text-align: center;
 }
 
 a {
-    color: #7c88ab;
+    color: #797979;
     text-decoration: none;
 }
 

@@ -1,6 +1,8 @@
 let hotlinks = [
+    ["admin", "http://localhost:8002", "kong"],
     ["admin", "http://$#:9000", "portainer"],
     ["admin", "http://192.168.2.1", "router"],
+    ["admin", "http://192.168.4.4", "pfSense"],
     ["admin", "http://192.168.2.2", "switch"],
     ["admin", "http://192.168.2.1/DHCPTable.html", "dhcp table"],
     ["watch", "http://$#:32400/web", "plex"],
@@ -120,24 +122,34 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-var groupsContainer = document.getElementById('container-groups');
-let groupNames = hotlinks.map(function (currentValue) {
-    return currentValue[0];
-}).filter(onlyUnique);
+function showGroups() {
+    var groupsContainer = document.getElementById('container-groups');
+    $(groupsContainer).empty();
+    let groupNames = hotlinks.map(function (currentValue) {
+        return currentValue[0];
+    }).filter(onlyUnique);
 
-for (let groupName of groupNames) {
-    var group = document.createElement('a');
-    group.setAttribute('href', "#");
-    group.setAttribute('class', 'link group');
-    group.text = groupName;
-    group.onmouseover = function () {
-        switchHotlinks(groupName);
-    };
-    groupsContainer.appendChild(group);
+    for (let groupName of groupNames) {
+        var group = document.createElement('a');
+        group.setAttribute('href', "#");
+        group.setAttribute('class', 'link group');
+        group.text = groupName;
+        group.onclick = function (event) {
+            switchHotlinks(groupName);
+            event.stopPropagation();
+        };
+        groupsContainer.appendChild(group);
+    }
 }
 
+showGroups();
+document.body.onclick = function () {
+    showGroups();
+}
+
+
 function switchHotlinks(targetGroupName) {
-    var linksContainer = document.getElementById('container-links');
+    var linksContainer = document.getElementById('container-groups');
     $(linksContainer).empty();
     for (let [groupName, url, name] of hotlinks) {
         if (groupName === targetGroupName) {
